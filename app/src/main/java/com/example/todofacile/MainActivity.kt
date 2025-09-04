@@ -190,6 +190,8 @@ class MainActivity : AppCompatActivity() {
         itemLayout.setOnClickListener {
             title.paintFlags = title.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
             title.setTextColor("#999999".toColorInt())
+            val mainBg = itemLayout.background.mutate()
+            mainBg.setTint("#191919".toColorInt())
         }
         itemLayout.addView(leftLayout)
         itemLayout.addView(rightLayout)
