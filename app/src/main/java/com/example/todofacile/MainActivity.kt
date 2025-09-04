@@ -5,6 +5,7 @@ import android.graphics.Paint
 import android.graphics.Typeface
 import android.os.Bundle
 import android.view.Gravity
+import android.view.View
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
@@ -16,7 +17,6 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
-
 
 class MainActivity : AppCompatActivity() {
     // global control init
@@ -38,7 +38,7 @@ class MainActivity : AppCompatActivity() {
         linearLayout = findViewById(R.id.linearLayout)
         showCurrentDate()
         newMethod("Do some housework", "important", "#FF3333".toColorInt(),
-            "for fun", "#FF3385".toColorInt(), "", "#3DB766".toColorInt())
+            "for fun", "#FF3385".toColorInt(), Constants.BLOCKING_WORD, "#3DB766".toColorInt())
         newMethod("Write an essay", "school task", "#3DB766".toColorInt(),
             "crucial", "#FFC012".toColorInt(), "for now", "#6033FF".toColorInt())
     }
@@ -112,72 +112,77 @@ class MainActivity : AppCompatActivity() {
         }
         // attributes
         // 1
-        val att1 = LinearLayout(this).apply {
-            orientation = LinearLayout.HORIZONTAL
-            setPadding(20, 10, 20, 10)
-            setBackgroundResource(R.drawable.btn_item)
-            val params = LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.WRAP_CONTENT,
-                LinearLayout.LayoutParams.WRAP_CONTENT
-            )
-            params.setMargins(0, 0, 15, 0)
-            layoutParams = params
+        if (a1 != Constants.BLOCKING_WORD) {
+            val att1 = LinearLayout(this).apply {
+                orientation = LinearLayout.HORIZONTAL
+                setPadding(25, 10, 25, 10)
+                setBackgroundResource(R.drawable.btn_item)
+                val params = LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.WRAP_CONTENT,
+                    LinearLayout.LayoutParams.WRAP_CONTENT
+                )
+                params.setMargins(0, 0, 15, 0)
+                layoutParams = params
+            }
+            val txt1 = TextView(this).apply {
+                text = a1
+                textSize = 14f
+                setTextColor(c1)
+                setTypeface(null, Typeface.BOLD)
+            }
+            val att1bg = att1.background.mutate()
+            att1bg.setTint(ColorUtils.setAlphaComponent(c1, (0.1f * 255).toInt()))
+            att1.addView(txt1)
+            attributeLayout.addView(att1)
         }
-        val txt1 = TextView(this).apply {
-            text = a1
-            textSize = 14f
-            setTextColor(c1)
-            setTypeface(null, Typeface.BOLD)
-        }
-        val att1bg = att1.background.mutate()
-        att1bg.setTint(ColorUtils.setAlphaComponent(c1, (0.1f * 255).toInt()))
-        att1.addView(txt1)
         // 2
-        val att2 = LinearLayout(this).apply {
-            orientation = LinearLayout.HORIZONTAL
-            setPadding(20, 10, 20, 10)
-            setBackgroundResource(R.drawable.btn_item)
-            val params = LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.WRAP_CONTENT,
-                LinearLayout.LayoutParams.WRAP_CONTENT
-            )
-            params.setMargins(0, 0, 15, 0)
-            layoutParams = params
+        if (a2 != Constants.BLOCKING_WORD) {
+            val att2 = LinearLayout(this).apply {
+                orientation = LinearLayout.HORIZONTAL
+                setPadding(25, 10, 25, 10)
+                setBackgroundResource(R.drawable.btn_item)
+                val params = LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.WRAP_CONTENT,
+                    LinearLayout.LayoutParams.WRAP_CONTENT
+                )
+                params.setMargins(0, 0, 15, 0)
+                layoutParams = params
+            }
+            val txt2 = TextView(this).apply {
+                text = a2
+                textSize = 14f
+                setTextColor(c2)
+                setTypeface(null, Typeface.BOLD)
+            }
+            val att2bg = att2.background.mutate()
+            att2bg.setTint(ColorUtils.setAlphaComponent(c2, (0.1f * 255).toInt()))
+            att2.addView(txt2)
+            attributeLayout.addView(att2)
         }
-        val txt2 = TextView(this).apply {
-            text = a2
-            textSize = 14f
-            setTextColor(c2)
-            setTypeface(null, Typeface.BOLD)
-        }
-        val att2bg = att2.background.mutate()
-        att2bg.setTint(ColorUtils.setAlphaComponent(c2, (0.1f * 255).toInt()))
-        att2.addView(txt2)
         // 3
-        val att3 = LinearLayout(this).apply {
-            orientation = LinearLayout.HORIZONTAL
-            setPadding(20, 10, 20, 10)
-            setBackgroundResource(R.drawable.btn_item)
-            val params = LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.WRAP_CONTENT,
-                LinearLayout.LayoutParams.WRAP_CONTENT
-            )
-            params.setMargins(0, 0, 15, 0)
-            layoutParams = params
+        if (a3 != Constants.BLOCKING_WORD) {
+            val att3 = LinearLayout(this).apply {
+                orientation = LinearLayout.HORIZONTAL
+                setPadding(25, 10, 25, 10)
+                setBackgroundResource(R.drawable.btn_item)
+                val params = LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.WRAP_CONTENT,
+                    LinearLayout.LayoutParams.WRAP_CONTENT
+                )
+                params.setMargins(0, 0, 15, 0)
+                layoutParams = params
+            }
+            val txt3 = TextView(this).apply {
+                text = a3
+                textSize = 14f
+                setTextColor(c3)
+                setTypeface(null, Typeface.BOLD)
+            }
+            val att3bg = att3.background.mutate()
+            att3bg.setTint(ColorUtils.setAlphaComponent(c3, (0.1f * 255).toInt()))
+            att3.addView(txt3)
+            attributeLayout.addView(att3)
         }
-        val txt3 = TextView(this).apply {
-            text = a3
-            textSize = 14f
-            setTextColor(c3)
-            setTypeface(null, Typeface.BOLD)
-        }
-        val att3bg = att3.background.mutate()
-        att3bg.setTint(ColorUtils.setAlphaComponent(c3, (0.1f * 255).toInt()))
-        att3.addView(txt3)
-        // purple layout children
-        attributeLayout.addView(att1)
-        attributeLayout.addView(att2)
-        attributeLayout.addView(att3)
         // right layout children
         rightLayout.addView(title)
         rightLayout.addView(attributeLayout)
