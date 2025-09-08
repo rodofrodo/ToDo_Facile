@@ -6,6 +6,7 @@ import android.graphics.Typeface
 import android.os.Bundle
 import android.view.Gravity
 import android.view.View
+import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
@@ -15,6 +16,7 @@ import androidx.core.graphics.ColorUtils
 import androidx.core.graphics.toColorInt
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.size
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
@@ -22,6 +24,7 @@ class MainActivity : AppCompatActivity() {
     // global control init
     private lateinit var dateLbl: TextView
     private lateinit var linearLayout: LinearLayout
+    private lateinit var taskCount: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
@@ -36,11 +39,18 @@ class MainActivity : AppCompatActivity() {
         // init
         dateLbl = findViewById(R.id.dateLbl)
         linearLayout = findViewById(R.id.linearLayout)
+        taskCount = findViewById(R.id.taskCountText)
+        // ---
+        linearLayout.addOnLayoutChangeListener { _, _, _, _, _, _, _, _, _ ->
+            taskCount.text = linearLayout.childCount.toString()
+        }
         showCurrentDate()
-        newMethod("Do some housework", "important", "#FF3333".toColorInt(),
-            "for fun", "#FF3385".toColorInt(), Constants.BLOCKING_WORD, "#3DB766".toColorInt())
-        newMethod("Write an essay", "school task", "#3DB766".toColorInt(),
-            "crucial", "#FFC012".toColorInt(), "for now", "#6033FF".toColorInt())
+        for (i in 0..10) {
+            newMethod("Do some housework", "important", "#FF3333".toColorInt(),
+                "for fun", "#FF3385".toColorInt(), Constants.BLOCKING_WORD, "#3DB766".toColorInt())
+            newMethod("Write an essay", "school task", "#3DB766".toColorInt(),
+                "crucial", "#FFC012".toColorInt(), "for now", "#6033FF".toColorInt())
+        }
     }
 
     private fun showCurrentDate() {
@@ -188,10 +198,11 @@ class MainActivity : AppCompatActivity() {
         rightLayout.addView(attributeLayout)
         // ---
         itemLayout.setOnClickListener {
-            title.paintFlags = title.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
-            title.setTextColor("#999999".toColorInt())
-            val mainBg = itemLayout.background.mutate()
-            mainBg.setTint("#191919".toColorInt())
+            linearLayout.removeView(itemLayout)
+            //title.paintFlags = title.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
+            //title.setTextColor("#999999".toColorInt())
+            //val mainBg = itemLayout.background.mutate()
+            //mainBg.setTint("#191919".toColorInt())
         }
         itemLayout.addView(leftLayout)
         itemLayout.addView(rightLayout)
