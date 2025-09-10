@@ -1,5 +1,6 @@
 package com.example.todofacile
 
+import android.content.Intent
 import android.graphics.Color
 import android.graphics.Paint
 import android.graphics.Typeface
@@ -25,6 +26,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var dateLbl: TextView
     private lateinit var linearLayout: LinearLayout
     private lateinit var taskCount: TextView
+    private lateinit var addBtn: ImageView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
@@ -40,24 +42,35 @@ class MainActivity : AppCompatActivity() {
         dateLbl = findViewById(R.id.dateLbl)
         linearLayout = findViewById(R.id.linearLayout)
         taskCount = findViewById(R.id.taskCountText)
+        addBtn = findViewById(R.id.addBtn)
         // ---
         linearLayout.addOnLayoutChangeListener { _, _, _, _, _, _, _, _, _ ->
             taskCount.text = linearLayout.childCount.toString()
         }
+        addBtn.setOnClickListener { addNewTask() }
         showCurrentDate()
-        for (i in 0..10) {
+        for (i in 0..9) {
             newMethod("Do some housework", "important", "#FF3333".toColorInt(),
                 "for fun", "#FF3385".toColorInt(), Constants.BLOCKING_WORD, "#3DB766".toColorInt())
             newMethod("Write an essay", "school task", "#3DB766".toColorInt(),
                 "crucial", "#FFC012".toColorInt(), "for now", "#6033FF".toColorInt())
+            newMethod("Do some housework", Constants.BLOCKING_WORD, "#3DB766".toColorInt(),
+                "for fun", "#FF3385".toColorInt(), "important", "#FF3333".toColorInt())
+            newMethod("Do some housework", Constants.BLOCKING_WORD, "#3DB766".toColorInt(),
+                Constants.BLOCKING_WORD, "#FF3385".toColorInt(), Constants.BLOCKING_WORD, "#FF3333".toColorInt())
         }
     }
 
     private fun showCurrentDate() {
         val current = LocalDateTime.now()
-        val formatter = DateTimeFormatter.ofPattern("d MMMM yyyy")
+        val formatter = DateTimeFormatter.ofPattern("EEEE, d MMMM yyyy")
         val customFormatted = current.format(formatter)
         dateLbl.text = customFormatted
+    }
+
+    private fun addNewTask() {
+        val intent = Intent(this, AddTaskAct::class.java)
+        startActivity(intent)
     }
 
     private fun newMethod(titleText: String, a1: String, c1: Int, a2: String, c2: Int, a3: String, c3: Int) {
