@@ -1,12 +1,20 @@
 package com.example.todofacile
 
 import android.os.Bundle
+import android.widget.Button
+import android.widget.EditText
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.graphics.toColorInt
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 
 class AddTaskAct : AppCompatActivity() {
+    private lateinit var taskName: EditText
+    private lateinit var tagNameFirst: EditText
+    private lateinit var tagColorFirst: EditText
+    private lateinit var addTaskBtn: Button
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -16,5 +24,17 @@ class AddTaskAct : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+        taskName = findViewById(R.id.taskName)
+        tagNameFirst = findViewById(R.id.tagName_first)
+        tagColorFirst = findViewById(R.id.tagColor_first)
+        addTaskBtn = findViewById(R.id.addTaskBtn)
+        // ---
+        addTaskBtn.setOnClickListener { addTask() }
+    }
+
+    private fun addTask() {
+        Constants.addInstance(taskName.text.toString(), tagNameFirst.text.toString(),
+            tagColorFirst.text.toString().toColorInt(), Constants.BLOCKING_WORD, "#ffffff".toColorInt(),
+            Constants.BLOCKING_WORD, "#ffffff".toColorInt())
     }
 }
