@@ -21,7 +21,7 @@ import androidx.core.view.size
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), AddTaskListener {
     // global control init
     private lateinit var dateLbl: TextView
     private lateinit var linearLayout: LinearLayout
@@ -47,18 +47,19 @@ class MainActivity : AppCompatActivity() {
         linearLayout.addOnLayoutChangeListener { _, _, _, _, _, _, _, _, _ ->
             taskCount.text = linearLayout.childCount.toString()
         }
+        Constants.addMember(this)
         addBtn.setOnClickListener { addNewTask() }
         showCurrentDate()
-        for (i in 0..9) {
-            newMethod("Do some housework", "important", "#FF3333".toColorInt(),
-                "for fun", "#FF3385".toColorInt(), Constants.BLOCKING_WORD, "#3DB766".toColorInt())
-            newMethod("Write an essay", "school task", "#3DB766".toColorInt(),
-                "crucial", "#FFC012".toColorInt(), "for now", "#6033FF".toColorInt())
-            newMethod("Do some housework", Constants.BLOCKING_WORD, "#3DB766".toColorInt(),
-                "for fun", "#FF3385".toColorInt(), "important", "#FF3333".toColorInt())
-            newMethod("Do some housework", Constants.BLOCKING_WORD, "#3DB766".toColorInt(),
-                Constants.BLOCKING_WORD, "#FF3385".toColorInt(), Constants.BLOCKING_WORD, "#FF3333".toColorInt())
-        }
+        //for (i in 0..9) {
+        //    newMethod("Do some housework", "important", "#FF3333".toColorInt(),
+        //        "for fun", "#FF3385".toColorInt(), Constants.BLOCKING_WORD, "#3DB766".toColorInt())
+        //    newMethod("Write an essay", "school task", "#3DB766".toColorInt(),
+        //        "crucial", "#FFC012".toColorInt(), "for now", "#6033FF".toColorInt())
+        //    newMethod("Do some housework", Constants.BLOCKING_WORD, "#3DB766".toColorInt(),
+        //        "for fun", "#FF3385".toColorInt(), "important", "#FF3333".toColorInt())
+        //    newMethod("Do some housework", Constants.BLOCKING_WORD, "#3DB766".toColorInt(),
+        //        Constants.BLOCKING_WORD, "#FF3385".toColorInt(), Constants.BLOCKING_WORD, "#FF3333".toColorInt())
+        //}
     }
 
     private fun showCurrentDate() {
@@ -73,7 +74,7 @@ class MainActivity : AppCompatActivity() {
         startActivity(intent)
     }
 
-    private fun newMethod(titleText: String, a1: String, c1: Int, a2: String, c2: Int, a3: String, c3: Int) {
+    fun newMethod(titleText: String, a1: String, c1: Int, a2: String, c2: Int, a3: String, c3: Int) {
         // black
         val itemLayout = LinearLayout(this).apply {
             orientation = LinearLayout.HORIZONTAL
@@ -220,5 +221,17 @@ class MainActivity : AppCompatActivity() {
         itemLayout.addView(leftLayout)
         itemLayout.addView(rightLayout)
         linearLayout.addView(itemLayout)
+    }
+
+    override fun addInstance(
+        titleText: String,
+        a1: String,
+        c1: Int,
+        a2: String,
+        c2: Int,
+        a3: String,
+        c3: Int
+    ) {
+        newMethod(titleText, a1, c1, a2, c2, a3, c3)
     }
 }
