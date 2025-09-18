@@ -13,6 +13,8 @@ class AddTaskAct : AppCompatActivity() {
     private lateinit var taskName: EditText
     private lateinit var tagNameFirst: EditText
     private lateinit var tagColorFirst: EditText
+    private lateinit var tagNameSecond: EditText
+    private lateinit var tagColorSecond: EditText
     private lateinit var addTaskBtn: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -27,14 +29,20 @@ class AddTaskAct : AppCompatActivity() {
         taskName = findViewById(R.id.taskName)
         tagNameFirst = findViewById(R.id.tagName_first)
         tagColorFirst = findViewById(R.id.tagColor_first)
+        tagNameSecond = findViewById(R.id.tagName_second)
+        tagColorSecond = findViewById(R.id.tagColor_second)
         addTaskBtn = findViewById(R.id.addTaskBtn)
         // ---
         addTaskBtn.setOnClickListener { addTask() }
     }
 
     private fun addTask() {
-        Constants.addInstance(taskName.text.toString(), tagNameFirst.text.toString(),
-            tagColorFirst.text.toString().toColorInt(), Constants.BLOCKING_WORD, "#ffffff".toColorInt(),
+        Constants.addInstance(taskName.text.toString(),
+            tagNameFirst.text.toString(),
+            tagColorFirst.text.toString().toColorInt(),
+            tagNameSecond.text.toString(),
+            tagColorSecond.text.toString().toColorInt(),
             Constants.BLOCKING_WORD, "#ffffff".toColorInt())
+        finish()
     }
 }
